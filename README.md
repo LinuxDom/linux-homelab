@@ -10,6 +10,9 @@ Infrastructure.
 - **hardening.yml** — Automates security hardening across all 
 servers including SSH hardening, firewalld configuration, 
 and fail2ban installation
+- **user_management.yml** — Creates a standard non-root admin 
+user with sudo privileges and deploys SSH key authentication, 
+then locks the default cloud account
 
 ## Environment
 - Control Node: macOS with Ansible installed via pip3
