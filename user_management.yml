@@ -1,0 +1,49 @@
+- name: User Management Playbook
+# hosts are defined in the inventory file
+  hosts: prod
+# sudo 
+  become: yes
+
+  vars:
+    admin_user: "prod_admin"
+    admin_groups: "wheel"
+
+  tasks:
+
+    - name: Create admin user
+      user:
+        name: "{{ admin_user }}"
+        groups: "{{ admin_groups }}"
+        append: yes
+        state: present
+        shell: /bin/bash
+        create_home: yes
+
+# mode; 0700 is important as anything more permissive prevents ssh from using it as
+# a security measure
+    - name: Create .ssh directory for new user
+      file:
+        path: "/home/{{ admin_user }}/.ssh"
+        state: directory
+        owner: "{{ admin_user }}"
+        group: "{{ admin_user }}"
+        mode: '0700'
+
+    - name: Deploy authorized SSH key for new user
+      authorized_key:
+        user: "{{ admin_user }}"
+        state: present
+        key: "{{ lookup('file', '~/.ssh/homelab_admin.pub') }}"
+
+# The validate line runs visudo -cf to make sure the syntax is correct
+    - name: Ensure wheel group has sudo privileges
+      lineinfile:
+        path: /etc/sudoers
+        regexp: '^%wheel'
+        line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
+
+    - name: Lock the opc default account
+      user:
+        name: opc
+        password_lock: yes
