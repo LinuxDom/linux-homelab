@@ -13,6 +13,16 @@ and fail2ban installation
 - **user_management.yml** — Creates a standard non-root admin 
 user with sudo privileges and deploys SSH key authentication, 
 then locks the default cloud account
+- **monitoring_pub.yml** - Deploys a monitoring stack across all 
+servers including htop for process monitoring, sysstat for 
+system performance data collection, and logwatch for automated 
+log summarization. Implements Ansible handlers for conditional 
+service restarts and Jinja2 templates for dynamic configuration 
+file generation.
+
+## Notes
+- Replace placeholder values in vars blocks with your 
+actual configuration before running playbooks
 
 ## Environment
 - Control Node: macOS with Ansible installed via pip3
