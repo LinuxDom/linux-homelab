@@ -20,6 +20,10 @@ log summarization. Implements Ansible handlers for conditional
 service restarts and Jinja2 templates for dynamic configuration 
 file generation.
 
+## Scripts
+- **check_services.sh** — Verifies fail2ban and firewalld are 
+active and enabled across all production servers via SSH
+
 ## Notes
 - Replace placeholder values in vars blocks with your 
 actual configuration before running playbooks
