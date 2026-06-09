@@ -1,0 +1,4 @@
+# Copy this file and update paths before installing
+# Install with: crontab -e
+
+0 * * * * /your/script/path/check_services.sh >> /your/log/path/check_services.log 2>&1

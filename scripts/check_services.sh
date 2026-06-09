@@ -3,6 +3,8 @@
 SERVERS=("prod1" "prod2")
 SERVICES=("fail2ban" "firewalld")
 
+echo "=== Service Check: $(date) ==="
+
 for SERVER in "${SERVERS[@]}"; do
 	echo "Checking $SERVER..."
 	for SERVICE in "${SERVICES[@]}"; do
