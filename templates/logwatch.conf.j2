@@ -1,0 +1,14 @@
+# Logwatch configuration
+# Managed by Ansible - do not edit manually
+
+LogDir = /var/log
+TmpDir = /var/cache/logwatch
+Output = stdout
+Format = text
+Encode = none
+MailTo = {{ logwatch_email }}
+MailFrom = logwatch@{{ ansible_hostname }}
+Detail = {{ logwatch_detail }}
+Range = {{ logwatch_range }}
+Service = All
+mailer = "/usr/sbin/sendmail -t"

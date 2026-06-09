@@ -1,0 +1,55 @@
+---
+- name: Monitoring Setup Playbook
+  hosts: prod
+  become: yes
+
+  vars:
+    logwatch_email: "your@email.com"
+    logwatch_detail: "Low"
+    logwatch_range: "yesterday"
+
+  handlers:
+    - name: Restart sysstat
+      service:
+        name: sysstat
+        state: restarted
+
+  tasks:
+
+    - name: Install monitoring packages
+      dnf:
+        name:
+          - htop
+          - sysstat
+          - logwatch
+        state: present
+
+    - name: Enable and start sysstat
+      service:
+        name: sysstat
+        state: started
+        enabled: yes
+
+    - name: Configure sysstat collection interval
+      lineinfile:
+        path: /etc/sysconfig/sysstat
+        regexp: '^HISTORY='
+        line: 'HISTORY=28'
+        state: present
+      notify: Restart sysstat
+
+    - name: Deploy logwatch configuration
+      template:
+        src: logwatch.conf.j2
+        dest: /etc/logwatch/conf/logwatch.conf
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Ensure logwatch directory exists
+      file:
+        path: /etc/logwatch/conf
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
