@@ -23,6 +23,8 @@ file generation.
 ## Scripts
 - **check_services.sh** — Verifies fail2ban and firewalld are 
 active and enabled across all production servers via SSH
+- **uptime_check.sh** — Reports system uptime, user sessions, 
+and load averages across all production servers
 
 ## Notes
 - Replace placeholder values in vars blocks with your 
@@ -35,6 +37,14 @@ running Oracle Linux 10
 
 ## Tools Used
 - Ansible
-- Oracle Cloud Infrastructure
+- Oracle Cloud Infrastructure (Always Free Tier)
+- Oracle Linux 10 (x86_64 and ARM/aarch64)
 - firewalld
 - fail2ban
+- sysstat
+- logwatch
+- Bash
+- Git/GitHub
+- SSH/OpenSSH
+- cron
+- systemd (timers — in progress)
