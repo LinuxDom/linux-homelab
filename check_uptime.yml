@@ -1,0 +1,40 @@
+---
+- name: Uptime Check Playbook
+  hosts: prod
+  become: yes
+
+  tasks:
+
+     - name: Copy service/timer unit files to prod servers
+       ansible.builtin.copy:
+         src: ~/homelab/linux-homelab/systemd/
+         dest: /etc/systemd/system/
+         owner: root
+         group: root
+         mode: '0744'  
+
+     - name: Ensure scripts directory exists for prod_admin
+       ansible.builtin.file:
+         path: /home/prod_admin/scripts
+         state: directory
+         owner: prod_admin
+         group: prod_admin
+         mode: '0755'
+
+     - name: Copy uptime script to prod servers
+       ansible.builtin.copy:
+         src: ~/homelab/linux-homelab/scripts/check_uptime.sh
+         dest: /home/prod_admin/scripts/
+         owner: prod_admin
+         group: prod_admin
+         mode: '0755'
+
+     - name: Reload systemd daemon 
+       ansible.builtin.systemd:
+         daemon_reload: yes
+
+     - name: Start/enable systemd timer file
+       ansible.builtin.systemd: 
+         name: check_uptime.timer
+         enabled: yes
+         state: started

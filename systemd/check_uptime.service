@@ -1,0 +1,10 @@
+[Unit]
+Description=Uptime Check For Prod Servers
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/home/prod_admin/homelab/linux-homelab/scripts/check_uptime.sh
+
+[Install]
+WantedBy=multi-user.target
