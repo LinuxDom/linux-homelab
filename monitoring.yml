@@ -4,9 +4,11 @@
   become: yes
 
   vars:
-    logwatch_email: "your@email.com"
     logwatch_detail: "Low"
     logwatch_range: "yesterday"
+
+  vars_files:
+    - secrets.yml
 
   handlers:
     - name: Restart sysstat
@@ -38,6 +40,14 @@
         state: present
       notify: Restart sysstat
 
+    - name: Ensure logwatch directory exists
+      file:
+        path: /etc/logwatch/conf
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
     - name: Deploy logwatch configuration
       template:
         src: logwatch.conf.j2
@@ -46,10 +56,4 @@
         group: root
         mode: '0644'
 
-    - name: Ensure logwatch directory exists
-      file:
-        path: /etc/logwatch/conf
-        state: directory
-        owner: root
-        group: root
-        mode: '0755'
+
