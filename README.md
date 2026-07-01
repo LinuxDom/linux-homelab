@@ -25,6 +25,10 @@ evolution from placeholder values to encrypted secrets.
 systemd timer to prod servers, scheduling automated uptime
 and load average reporting
 
+## Roles
+- **hardening** — Role-based refactor of hardening playbook,
+organizing tasks into reusable Ansible role structure
+
 ## Scripts
 - **check_services.sh** — Verifies fail2ban and firewalld are 
 active and enabled across all production servers via SSH
