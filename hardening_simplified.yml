@@ -1,0 +1,6 @@
+---
+- name: Apply server hardening
+  hosts: prod
+  become: yes
+  roles:
+    - hardening
