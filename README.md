@@ -28,6 +28,8 @@ and load average reporting
 ## Roles
 - **hardening** — Role-based refactor of hardening playbook,
 organizing tasks into reusable Ansible role structure
+- **monitoring** — Full role conversion of monitoring playbook 
+including tasks, handlers, vars, and Jinja2 template
 
 ## Scripts
 - **check_services.sh** — Verifies fail2ban and firewalld are 
