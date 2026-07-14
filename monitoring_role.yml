@@ -1,0 +1,8 @@
+---
+- name: Monitoring Setup Playbook
+  hosts: prod
+  become: yes
+  vars_files:
+    - secrets.yml
+  roles:
+    - monitoring
