@@ -1,0 +1,23 @@
+---
+- name: Deploy Scripts  Playbook
+  hosts: prod
+  become: yes
+
+  tasks:
+
+     - name: Ensure scripts directory exists for prod_admin
+       ansible.builtin.file:
+         path: /home/prod_admin/scripts
+         state: directory
+         owner: prod_admin
+         group: prod_admin
+         mode: '0755'
+
+     - name: Copy hardening verification script to prod servers
+       ansible.builtin.copy:
+         src: ~/homelab/linux-homelab/scripts/verify_hardening.sh
+         dest: /home/prod_admin/scripts/
+         owner: prod_admin
+         group: prod_admin
+         mode: '0755'
+
