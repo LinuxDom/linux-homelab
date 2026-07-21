@@ -24,6 +24,8 @@ evolution from placeholder values to encrypted secrets.
 - **check_uptime.yml** — Deploys uptime check script and
 systemd timer to prod servers, scheduling automated uptime
 and load average reporting
+- **deploy_scripts.yml** — Deploys bash scripts to prod servers, 
+ensuring correct ownership and executable permissions
 
 ## Roles
 - **hardening** — Role-based refactor of hardening playbook,
@@ -36,6 +38,9 @@ including tasks, handlers, vars, and Jinja2 template
 active and enabled across all production servers via SSH
 - **uptime_check.sh** — Reports system uptime, user sessions, 
 and load averages across all production servers
+- **verify_hardening.sh** — Security audit script verifying 
+SSH hardening, firewalld, and fail2ban status across prod 
+servers. Requires root/sudo privileges.
 
 ## Notes
 - Replace placeholder values in vars blocks with your 
