@@ -1,0 +1,28 @@
+---
+- name: STIG Audit - Install auditd
+  dnf:
+    name: audit
+    state: present
+
+- name: STIG Audit - Enable and start auditd
+  service:
+    name: auditd
+    state: started
+    enabled: yes
+
+- name: STIG Audit - Deploy audit rules
+  template:
+    src: audit.rules.j2
+    dest: /etc/audit/rules.d/stig.rules
+    owner: root
+    group: root
+    mode: '0640'
+  notify: Reload audit rules
+
+- name: STIG Audit - Set audit backlog limit
+  lineinfile:
+    path: /etc/audit/auditd.conf
+    regexp: '^tcp_listen_queue'
+    line: 'tcp_listen_queue = {{ stig_audit_backlog_limit }}'
+    state: present
+  notify: Restart auditd

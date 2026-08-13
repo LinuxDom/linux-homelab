@@ -1,0 +1,12 @@
+---
+- name: STIG Sysctl - Deploy hardened kernel parameters
+  template:
+    src: sysctl_stig.conf.j2
+    dest: /etc/sysctl.d/99-stig.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Apply sysctl settings
+
+- name: STIG Sysctl - Apply settings immediately
+  command: sysctl --system

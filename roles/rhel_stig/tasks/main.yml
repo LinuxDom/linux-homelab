@@ -1,0 +1,24 @@
+---
+- name: STIG SSH Hardening
+  import_tasks: ssh.yml
+  tags: ssh
+
+- name: STIG Login Banners
+  import_tasks: banners.yml
+  tags: banners
+
+- name: STIG Authentication Policies
+  import_tasks: auth.yml
+  tags: auth
+
+- name: STIG Audit Logging
+  import_tasks: audit.yml
+  tags: audit
+
+- name: STIG Sysctl Hardening
+  import_tasks: sysctl.yml
+  tags: sysctl
+
+- name: STIG File Permissions
+  import_tasks: fileperm.yml
+  tags: fileperm

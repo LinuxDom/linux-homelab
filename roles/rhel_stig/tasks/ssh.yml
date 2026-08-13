@@ -1,0 +1,64 @@
+---
+- name: STIG SSH - Set MaxAuthTries
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^MaxAuthTries'
+    line: 'MaxAuthTries {{ stig_ssh_max_auth_tries }}'
+    state: present
+  notify: Restart sshd
+
+- name: STIG SSH - Set ClientAliveInterval
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^ClientAliveInterval'
+    line: 'ClientAliveInterval {{ stig_ssh_client_alive_interval }}'
+    state: present
+  notify: Restart sshd
+
+- name: STIG SSH - Set ClientAliveCountMax
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^ClientAliveCountMax'
+    line: 'ClientAliveCountMax {{ stig_ssh_client_alive_count_max }}'
+    state: present
+  notify: Restart sshd
+
+- name: STIG SSH - Disable empty passwords
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^PermitEmptyPasswords'
+    line: 'PermitEmptyPasswords no'
+    state: present
+  notify: Restart sshd
+
+- name: STIG SSH - Ignore user known hosts
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^IgnoreUserKnownHosts'
+    line: 'IgnoreUserKnownHosts yes'
+    state: present
+  notify: Restart sshd
+
+- name: STIG SSH - Disable rhosts
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^IgnoreRhosts'
+    line: 'IgnoreRhosts yes'
+    state: present
+  notify: Restart sshd
+
+- name: STIG SSH - Restrict ciphers to approved algorithms
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^Ciphers'
+    line: 'Ciphers aes256-ctr,aes192-ctr,aes128-ctr'
+    state: present
+  notify: Restart sshd
+
+- name: STIG SSH - Restrict MACs to approved algorithms
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^MACs'
+    line: 'MACs hmac-sha2-512,hmac-sha2-256'
+    state: present
+  notify: Restart sshd

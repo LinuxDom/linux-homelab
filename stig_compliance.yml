@@ -1,0 +1,6 @@
+---
+- name: RHEL STIG Compliance Playbook
+  hosts: prod
+  become: yes
+  roles:
+    - rhel_stig

@@ -1,0 +1,70 @@
+---
+- name: STIG Auth - Install PAM packages
+  dnf:
+    name:
+      - pam
+      - libpwquality
+    state: present
+
+- name: STIG Auth - Set password minimum length
+  lineinfile:
+    path: /etc/security/pwquality.conf
+    regexp: '^minlen'
+    line: 'minlen = {{ stig_password_min_length }}'
+    state: present
+
+- name: STIG Auth - Set password complexity - minimum digits
+  lineinfile:
+    path: /etc/security/pwquality.conf
+    regexp: '^dcredit'
+    line: 'dcredit = -1'
+    state: present
+
+- name: STIG Auth - Set password complexity - minimum uppercase
+  lineinfile:
+    path: /etc/security/pwquality.conf
+    regexp: '^ucredit'
+    line: 'ucredit = -1'
+    state: present
+
+- name: STIG Auth - Set password complexity - minimum lowercase
+  lineinfile:
+    path: /etc/security/pwquality.conf
+    regexp: '^lcredit'
+    line: 'lcredit = -1'
+    state: present
+
+- name: STIG Auth - Set password complexity - minimum special chars
+  lineinfile:
+    path: /etc/security/pwquality.conf
+    regexp: '^ocredit'
+    line: 'ocredit = -1'
+    state: present
+
+- name: STIG Auth - Set maximum password age
+  lineinfile:
+    path: /etc/login.defs
+    regexp: '^PASS_MAX_DAYS'
+    line: 'PASS_MAX_DAYS {{ stig_password_max_age }}'
+    state: present
+
+- name: STIG Auth - Set minimum password age
+  lineinfile:
+    path: /etc/login.defs
+    regexp: '^PASS_MIN_DAYS'
+    line: 'PASS_MIN_DAYS {{ stig_password_min_age }}'
+    state: present
+
+- name: STIG Auth - Configure account lockout via faillock
+  lineinfile:
+    path: /etc/security/faillock.conf
+    regexp: '^deny'
+    line: 'deny = {{ stig_account_lockout_attempts }}'
+    state: present
+
+- name: STIG Auth - Set lockout unlock time
+  lineinfile:
+    path: /etc/security/faillock.conf
+    regexp: '^unlock_time'
+    line: 'unlock_time = {{ stig_account_lockout_time }}'
+    state: present

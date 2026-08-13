@@ -1,0 +1,35 @@
+---
+- name: STIG Fileperm - /etc/passwd owned by root
+  file:
+    path: /etc/passwd
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: STIG Fileperm - /etc/shadow restricted
+  file:
+    path: /etc/shadow
+    owner: root
+    group: root
+    mode: '0000'
+
+- name: STIG Fileperm - /etc/group owned by root
+  file:
+    path: /etc/group
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: STIG Fileperm - /etc/gshadow restricted
+  file:
+    path: /etc/gshadow
+    owner: root
+    group: root
+    mode: '0000'
+
+- name: STIG Fileperm - sshd_config restricted
+  file:
+    path: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: '0600'

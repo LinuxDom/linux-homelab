@@ -1,0 +1,14 @@
+---
+- name: Restart sshd
+  service:
+    name: sshd
+    state: restarted
+
+- name: Restart auditd
+  command: service auditd restart
+
+- name: Reload audit rules
+  command: augenrules --load
+
+- name: Apply sysctl settings
+  command: sysctl --system

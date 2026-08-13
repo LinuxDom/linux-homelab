@@ -1,0 +1,15 @@
+---
+# SSH Settings
+stig_ssh_max_auth_tries: 3
+stig_ssh_client_alive_interval: 600
+stig_ssh_client_alive_count_max: 0
+
+# Authentication Settings
+stig_account_lockout_attempts: 3
+stig_account_lockout_time: 900
+stig_password_max_age: 60
+stig_password_min_age: 1
+stig_password_min_length: 15
+
+# Audit Settings
+stig_audit_backlog_limit: 8192
