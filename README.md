@@ -6,6 +6,17 @@ A collection of Ansible playbooks for managing and securing
 a personal cloud-based Linux homelab running on Oracle Cloud 
 Infrastructure.
 
+## STIG Compliance
+- **stig_compliance.yml** — Applies DISA STIG-aligned security
+controls via the rhel_stig role, covering SSH hardening, DoD
+login banners, authentication policy, auditd configuration,
+kernel parameter hardening, and file permission enforcement
+
+### Running specific control areas
+ansible-playbook -i inventory.ini stig_compliance.yml --tags ssh
+ansible-playbook -i inventory.ini stig_compliance.yml --tags audit
+ansible-playbook -i inventory.ini stig_compliance.yml --tags sysctl
+
 ## Playbooks
 - **hardening.yml** — Automates security hardening across all 
 servers including SSH hardening, firewalld configuration, 
@@ -52,9 +63,12 @@ actual configuration before running playbooks
 running Oracle Linux 10
 
 ## Tools Used
-- Ansible
+- Ansible (Playbooks, Roles, Handlers, Jinja2 Templates, Vault)
 - Oracle Cloud Infrastructure (Always Free Tier)
 - Oracle Linux 10 (x86_64 and ARM/aarch64)
+- DISA STIG (CAT I & CAT II compliance controls)
+- auditd
+- PAM (Pluggable Authentication Modules)
 - firewalld
 - fail2ban
 - sysstat
@@ -63,4 +77,4 @@ running Oracle Linux 10
 - Git/GitHub
 - SSH/OpenSSH
 - cron
-- systemd(timers)
+- systemd (timers)
